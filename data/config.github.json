@@ -1,18 +1,218 @@
 {
   "ai": {
-    "provider": "deepseek",
-    "model": "deepseek-v4-flash",
-    "base_url": "https://api.deepseek.com",
-    "api_key_env": "DEEPSEEK_API_KEY",
+    "provider": "openai",
+    "provider_chain": null,
+    "model": "grok-4.5",
+    "base_url": "https://api.x.ai/v1",
+    "api_key_env": "XAI_API_KEY",
+    "chatgpt_account": null,
+    "extra_body": null,
     "temperature": 0.3,
-    "max_tokens": 8192,
-    "throttle_sec": 1,
+    "max_tokens": 4096,
+    "throttle_sec": 0.2,
+    "analysis_concurrency": 2,
+    "enrichment_concurrency": 2,
     "languages": [
-      "zh",
-      "en"
+      "en",
+      "zh"
     ],
-    "analysis_concurrency": 5,
-    "enrichment_concurrency": 5
+    "azure_endpoint_env": null,
+    "api_version": null
+  },
+  "sources": {
+    "github": [],
+    "hackernews": {
+      "enabled": false,
+      "fetch_top_stories": 30,
+      "min_score": 100,
+      "category": null,
+      "profile": null
+    },
+    "rss": [
+      {
+        "name": "Interconnects",
+        "url": "https://www.interconnects.ai/feed",
+        "enabled": true,
+        "category": "ai-news",
+        "content_extractor": null,
+        "profile": "tech-news"
+      },
+      {
+        "name": "OpenAI News",
+        "url": "https://openai.com/news/rss.xml",
+        "enabled": true,
+        "category": "ai-news",
+        "content_extractor": null,
+        "profile": "tech-news"
+      },
+      {
+        "name": "Last Week in AI",
+        "url": "https://lastweekin.ai/feed",
+        "enabled": true,
+        "category": "ai-news",
+        "content_extractor": null,
+        "profile": "tech-news"
+      },
+      {
+        "name": "Hugging Face Blog",
+        "url": "https://huggingface.co/blog/feed.xml",
+        "enabled": true,
+        "category": "ai-news",
+        "content_extractor": null,
+        "profile": "tech-news"
+      },
+      {
+        "name": "量子位",
+        "url": "https://wechat2rss.xlab.app/feed/7131b577c61365cb47e81000738c10d872685908.xml",
+        "enabled": true,
+        "category": "ai-news",
+        "content_extractor": null,
+        "profile": "tech-news"
+      },
+      {
+        "name": "新智元",
+        "url": "https://wechat2rss.xlab.app/feed/ede30346413ea70dbef5d485ea5cbb95cca446e7.xml",
+        "enabled": true,
+        "category": "ai-news",
+        "content_extractor": null,
+        "profile": "tech-news"
+      },
+      {
+        "name": "BBC World",
+        "url": "https://feeds.bbci.co.uk/news/world/rss.xml",
+        "enabled": true,
+        "category": "geopolitics",
+        "content_extractor": null,
+        "profile": "world-news"
+      },
+      {
+        "name": "BBC Chinese",
+        "url": "https://feeds.bbci.co.uk/zhongwen/simp/rss.xml",
+        "enabled": true,
+        "category": "geopolitics",
+        "content_extractor": null,
+        "profile": "world-news"
+      },
+      {
+        "name": "The Guardian World",
+        "url": "https://www.theguardian.com/world/rss",
+        "enabled": true,
+        "category": "geopolitics",
+        "content_extractor": null,
+        "profile": "world-news"
+      },
+      {
+        "name": "Al Jazeera",
+        "url": "https://www.aljazeera.com/xml/rss/all.xml",
+        "enabled": true,
+        "category": "geopolitics",
+        "content_extractor": null,
+        "profile": "world-news"
+      },
+      {
+        "name": "The Economist",
+        "url": "https://www.economist.com/latest/rss.xml",
+        "enabled": true,
+        "category": "economics",
+        "content_extractor": null,
+        "profile": [
+          "finance-news",
+          "world-news"
+        ]
+      },
+      {
+        "name": "CNBC Finance",
+        "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664",
+        "enabled": true,
+        "category": "economics",
+        "content_extractor": null,
+        "profile": "finance-news"
+      }
+    ],
+    "reddit": {
+      "enabled": false,
+      "subreddits": [],
+      "users": [],
+      "fetch_comments": 5
+    },
+    "telegram": {
+      "enabled": false,
+      "channels": []
+    },
+    "twitter": null,
+    "openbb": null,
+    "ossinsight": {
+      "enabled": false,
+      "period": "past_24_hours",
+      "languages": [
+        "All",
+        "Python",
+        "TypeScript"
+      ],
+      "keywords": [],
+      "min_stars": 5,
+      "max_items": 30,
+      "category": null,
+      "profile": null
+    },
+    "gdelt": {
+      "enabled": true,
+      "query": "(conflict OR ceasefire OR airstrike OR invasion OR sanctions OR geopolitics)",
+      "mode": "ArtList",
+      "max_records": 20,
+      "timespan": null,
+      "language": null,
+      "country": null,
+      "category": "geopolitics",
+      "profile": "world-news"
+    },
+    "google_news": {
+      "enabled": true,
+      "query": "economy OR inflation OR \"interest rates\" OR GDP OR recession OR \"central bank\"",
+      "language": "en",
+      "country": "HK",
+      "ceid": null,
+      "max_results": 15,
+      "category": "economics",
+      "profile": "finance-news"
+    }
+  },
+  "collection": {
+    "time_window_hours": 24
+  },
+  "digest": {
+    "max_items": 20,
+    "category_groups": {
+      "ai": {
+        "name": "AI / Machine Learning",
+        "limit": 10,
+        "categories": [
+          "tech-news"
+        ]
+      },
+      "world": {
+        "name": "Politics and conflict",
+        "limit": 5,
+        "categories": [
+          "world-news"
+        ]
+      },
+      "economics": {
+        "name": "Economics",
+        "limit": 5,
+        "categories": [
+          "finance-news"
+        ]
+      }
+    },
+    "group_by": "profile",
+    "default_group": "other",
+    "default_group_limit": null,
+    "profile_order": [
+      "tech-news",
+      "world-news",
+      "finance-news"
+    ]
   },
   "processing": {
     "profiles_dir": "profiles",
@@ -22,9 +222,9 @@
         "threshold": 7.0,
         "topic_dedup": true
       },
-      "tech-blog": {
-        "threshold": 4.0,
-        "topic_dedup": false
+      "world-news": {
+        "threshold": 7.0,
+        "topic_dedup": true
       },
       "finance-news": {
         "threshold": 7.0,
@@ -32,182 +232,24 @@
       }
     }
   },
-  "sources": {
-    "github": [
-      {
-        "type": "user_events",
-        "username": "karpathy",
-        "enabled": true,
-        "profile": "tech-news"
-      },
-      {
-        "type": "repo_releases",
-        "owner": "vllm-project",
-        "repo": "vllm",
-        "enabled": true,
-        "profile": "tech-news"
-      },
-      {
-        "type": "repo_releases",
-        "owner": "sgl-project",
-        "repo": "sglang",
-        "enabled": true,
-        "profile": "tech-news"
-      },
-      {
-        "type": "repo_releases",
-        "owner": "triton-lang",
-        "repo": "triton",
-        "enabled": true,
-        "profile": "tech-news"
-      }
-    ],
-    "hackernews": {
-      "enabled": true,
-      "fetch_top_stories": 30,
-      "min_score": 150,
-      "profile": "tech-news"
-    },
-    "rss": [
-      {
-        "name": "Simon Willison",
-        "url": "https://simonwillison.net/atom/everything/",
-        "enabled": true,
-        "category": "ai-tools",
-        "profile": "tech-news"
-      },
-      {
-        "name": "vLLM Blog",
-        "url": "https://vllm.ai/blog/rss.xml",
-        "enabled": true,
-        "category": "llm-inference",
-        "profile": "tech-blog",
-        "content_extractor": "trafilatura"
-      },
-      {
-        "name": "Sean Goedecke",
-        "url": "https://www.seangoedecke.com/rss.xml",
-        "enabled": true,
-        "category": "software-engineering",
-        "profile": "tech-blog",
-        "content_extractor": "trafilatura"
-      },
-      {
-        "name": "CNBC Finance",
-        "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664",
-        "enabled": true,
-        "category": "finance",
-        "profile": "finance-news",
-        "content_extractor": "trafilatura"
-      },
-      {
-        "name": "GitHub Trending - Daily",
-        "url": "https://mshibanami.github.io/GitHubTrendingRSS/daily/all.xml",
-        "enabled": true,
-        "category": "github-trending",
-        "profile": "tech-news"
-      },
-      {
-        "name": "Semianalysis",
-        "url": "https://newsletter.semianalysis.com/feed",
-        "enabled": true,
-        "category": "semiconductors",
-        "profile": "tech-news"
-      },
-      {
-        "name": "LWN.net",
-        "url": "https://lwn.net/headlines/full_text?key=${LWN_KEY}",
-        "enabled": true,
-        "category": "linux-kernel",
-        "profile": "tech-news"
-      }
-    ],
-    "reddit": {
-      "enabled": true,
-      "subreddits": [
-        {
-          "subreddit": "MachineLearning",
-          "enabled": true,
-          "sort": "hot",
-          "time_filter": "day",
-          "fetch_limit": 10,
-          "min_score": 60,
-          "profile": "tech-news"
-        },
-        {
-          "subreddit": "LocalLLaMA",
-          "enabled": true,
-          "sort": "hot",
-          "time_filter": "day",
-          "fetch_limit": 10,
-          "min_score": 60,
-          "profile": "tech-news"
-        }
-      ],
-      "users": [],
-      "fetch_comments": 10
-    },
-    "telegram": {
-      "enabled": true,
-      "channels": [
-        {
-          "channel": "zaihuapd",
-          "enabled": true,
-          "fetch_limit": 20,
-          "profile": ["tech-news", "finance-news"]
-        }
-      ]
-    }
+  "display": {
+    "icon_style": "emoji"
   },
-  "collection": {
-    "time_window_hours": 24
+  "extractors": {},
+  "email": {
+    "imap_server": "imap.gmail.com",
+    "imap_port": 993,
+    "imap_enabled": true,
+    "smtp_server": "smtp.gmail.com",
+    "smtp_port": 465,
+    "smtp_username": "silex7887@gmail.com",
+    "email_address": "silex7887@gmail.com",
+    "password_env": "EMAIL_PASSWORD",
+    "sender_name": "Horizon Daily",
+    "subscribe_keyword": "SUBSCRIBE",
+    "unsubscribe_keyword": "UNSUBSCRIBE",
+    "enabled": true
   },
-  "digest": {
-    "max_items": null,
-    "profile_order": [
-      "tech-news",
-      "tech-blog",
-      "finance-news"
-    ],
-    "category_groups": {},
-    "default_group": "other",
-    "default_group_limit": null
-  },
-  "webhook": {
-    "enabled": true,
-    "url_env": "HORIZON_WEBHOOK_URL",
-    "delivery": "summary_and_items",
-    "overview_position": "last",
-    "platform": "feishu",
-    "layout": "collapsible",
-    "fallback_layout": "markdown",
-    "languages": [
-      "zh"
-    ],
-    "request_body": {
-      "msg_type": "interactive",
-      "card": {
-        "schema": "2.0",
-        "config": {
-          "wide_screen_mode": true
-        },
-        "header": {
-          "title": {
-            "tag": "plain_text",
-            "content": "#{message_title}"
-          },
-          "template": "blue"
-        },
-        "body": {
-          "elements": [
-            {
-              "tag": "markdown",
-              "content": "#{summary}"
-            }
-          ]
-        }
-      }
-    },
-    "headers": ""
-  }
+  "webhook": null,
+  "wechat": null
 }
