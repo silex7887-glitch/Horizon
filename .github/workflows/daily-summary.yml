@@ -1,0 +1,90 @@
+name: Daily Horizon Summary
+
+on:
+  schedule:
+    # GitHub schedules use UTC. 23:00 UTC is 07:00 Asia/Hong_Kong.
+    # Scheduled runs can start later than the cron time.
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: daily-horizon-summary
+  cancel-in-progress: false
+
+jobs:
+  daily-summary:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.26"
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Prepare GitHub Actions config
+        run: |
+          cp data/config.github.json data/config.json
+          mkdir -p data
+          if [ ! -f data/subscribers.json ]; then
+            printf '%s\n' '["silex7887@gmail.com"]' > data/subscribers.json
+          fi
+
+      - name: Restore digest history
+        run: |
+          mkdir -p data/summaries
+          git fetch origin gh-pages || true
+          if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
+            git archive origin/gh-pages docs/_posts | tar -x || true
+            python3 - << 'PY'
+          from pathlib import Path
+          posts = Path("docs/_posts")
+          out = Path("data/summaries")
+          if not posts.exists():
+              raise SystemExit(0)
+          for path in posts.glob("*-summary-*.md"):
+              stem = path.stem
+              if "-summary-" not in stem:
+                  continue
+              date, lang = stem.rsplit("-summary-", 1)
+              text = path.read_text(encoding="utf-8")
+              if text.startswith("---"):
+                  parts = text.split("---", 2)
+                  if len(parts) == 3:
+                      text = parts[2].lstrip("\n")
+              dest = out / f"horizon-{date}-{lang}.md"
+              if not dest.exists():
+                  dest.write_text(text, encoding="utf-8")
+          PY
+          fi
+
+      - name: Run Horizon
+        env:
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        run: uv run horizon --hours 24
+
+      - name: Set current date as environment variable
+        run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          keep_files: true
+          commit_message: "Daily Summary: ${{ env.DATE }}"
+          publish_branch: gh-pages
+          enable_jekyll: true
