@@ -2,9 +2,10 @@ name: Daily Horizon Summary
 
 on:
   schedule:
-    # GitHub schedules use UTC. 23:00 UTC is 07:00 Asia/Hong_Kong.
+    # GitHub schedules use UTC. 23:00 UTC is 07:00 Asia/Hong_Kong the next calendar day.
+    # Sunday-Thursday UTC is Monday-Friday morning in Hong Kong.
     # Scheduled runs can start later than the cron time.
-    - cron: '0 23 * * *'
+    - cron: '0 23 * * 0-4'
   workflow_dispatch:
 
 concurrency:
