@@ -32,7 +32,7 @@
       {
         "name": "Interconnects",
         "url": "https://www.interconnects.ai/feed",
-        "enabled": true,
+        "enabled": false,
         "category": "ai-news",
         "content_extractor": null,
         "profile": "tech-news"
@@ -40,7 +40,7 @@
       {
         "name": "OpenAI News",
         "url": "https://openai.com/news/rss.xml",
-        "enabled": true,
+        "enabled": false,
         "category": "ai-news",
         "content_extractor": null,
         "profile": "tech-news"
@@ -48,7 +48,7 @@
       {
         "name": "Last Week in AI",
         "url": "https://lastweekin.ai/feed",
-        "enabled": true,
+        "enabled": false,
         "category": "ai-news",
         "content_extractor": null,
         "profile": "tech-news"
@@ -56,7 +56,7 @@
       {
         "name": "Hugging Face Blog",
         "url": "https://huggingface.co/blog/feed.xml",
-        "enabled": true,
+        "enabled": false,
         "category": "ai-news",
         "content_extractor": null,
         "profile": "tech-news"
@@ -65,17 +65,17 @@
         "name": "量子位",
         "url": "https://wechat2rss.xlab.app/feed/7131b577c61365cb47e81000738c10d872685908.xml",
         "enabled": true,
-        "category": "ai-news",
+        "category": "chinese-news",
         "content_extractor": null,
-        "profile": "tech-news"
+        "profile": "chinese-news"
       },
       {
         "name": "新智元",
         "url": "https://wechat2rss.xlab.app/feed/ede30346413ea70dbef5d485ea5cbb95cca446e7.xml",
         "enabled": true,
-        "category": "ai-news",
+        "category": "chinese-news",
         "content_extractor": null,
-        "profile": "tech-news"
+        "profile": "chinese-news"
       },
       {
         "name": "BBC World",
@@ -89,9 +89,9 @@
         "name": "BBC Chinese",
         "url": "https://feeds.bbci.co.uk/zhongwen/simp/rss.xml",
         "enabled": true,
-        "category": "geopolitics",
+        "category": "chinese-news",
         "content_extractor": null,
-        "profile": "world-news"
+        "profile": "chinese-news"
       },
       {
         "name": "The Guardian World",
@@ -181,25 +181,25 @@
     "time_window_hours": 24
   },
   "digest": {
-    "max_items": 20,
+    "max_items": 10,
     "category_groups": {
-      "ai": {
-        "name": "AI / Machine Learning",
-        "limit": 10,
-        "categories": [
-          "tech-news"
-        ]
-      },
       "world": {
-        "name": "Politics and conflict",
+        "name": "World affairs",
         "limit": 5,
         "categories": [
           "world-news"
         ]
       },
-      "economics": {
-        "name": "Economics",
-        "limit": 5,
+      "chinese": {
+        "name": "Chinese news",
+        "limit": 2,
+        "categories": [
+          "chinese-news"
+        ]
+      },
+      "finance": {
+        "name": "Financial news",
+        "limit": 3,
         "categories": [
           "finance-news"
         ]
@@ -209,8 +209,8 @@
     "default_group": "other",
     "default_group_limit": null,
     "profile_order": [
-      "tech-news",
       "world-news",
+      "chinese-news",
       "finance-news"
     ]
   },
@@ -223,6 +223,10 @@
         "topic_dedup": true
       },
       "world-news": {
+        "threshold": 7.0,
+        "topic_dedup": true
+      },
+      "chinese-news": {
         "threshold": 7.0,
         "topic_dedup": true
       },
